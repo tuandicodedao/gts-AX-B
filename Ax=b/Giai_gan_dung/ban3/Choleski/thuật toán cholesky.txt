@@ -1,0 +1,43 @@
+Bước 1: Kiểm tra tính đối xứng của ma trận
++	Nếu ma trận đối xứng, chuyển sang bước 2
++	Ngược lại, lấy ma trận chuyển vị nhân với 2 vế của phương trình rồi chuyển sang bước 2
+
+Bước 2: Thực hiện lặp tìm ma trận L
+	for i = 0 to m do
+		for j = 0 to i do {
+			sum = 0
+			for k = 0 to j-1 do
+				sum = sum + L[i,k]*L[j,k]
+			if (i == j) then {
+				p = A[i,i] - sum;
+				if(p == 0) return
+				else if (p < 0) lấy ma trận chuyển vị nhân với 2 vế của phương trình rồi thực hiện là bước 2
+					else L[i,i] = sqrt(p)
+			}
+			else {
+				q = L[j,j]
+				L[i,j] = (A[i,j] - sum)/q
+			}
+		}
+
+Bước 3: Giải phương trình Ly = d
++	Tạo ma trận bổ sung L|d
++	for i = 0 to m-1 do {
+		y[i] = L[i,n-1]
+		for j = 0 to i-1 do
+			y[i] = y[i] - L[i,j]*y[j]
+		y[i] = y[i]/L[i,i]
+	}
+
+Bước 4: Giải phương trình Ux = y
++	Chuyển vị ma trận L được ma trận U
++	Tạo ma trận bổ sung U|y
++	for i = m-1 to 0 do {
+		x[i] = U[i,n-1]
+		for j = 0 to i-1 do
+			if (i != j) then
+				x[i] = x[i] - U[i,j]*x[j]
+		x[i] = x[i]/U[i,i]
+	}
+
+Bước 5: Thông báo nghiệm rồi kết thúc
